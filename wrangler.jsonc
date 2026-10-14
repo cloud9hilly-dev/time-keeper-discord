@@ -19,6 +19,7 @@
     }
   ],
   "vars": {
-    "DEMO_MODE": "false"
+    "DEMO_MODE": "false",
+    "DISCORD_CLIENT_ID": "1559937929860874271"
   }
 }
