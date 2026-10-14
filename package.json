@@ -1,0 +1,25 @@
+{
+  "name": "time-keeper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "node --test --experimental-strip-types tests/*.test.ts",
+    "build": "vite build",
+    "dev": "pnpm build && wrangler dev",
+    "deploy": "pnpm build && wrangler deploy",
+    "db:local": "wrangler d1 migrations apply time-keeper-db --local",
+    "db:remote": "wrangler d1 migrations apply time-keeper-db --remote"
+  },
+  "dependencies": {
+    "@discord/embedded-app-sdk": "latest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "@types/node": "latest",
+    "typescript": "latest",
+    "vite": "latest",
+    "wrangler": "latest"
+  }
+}

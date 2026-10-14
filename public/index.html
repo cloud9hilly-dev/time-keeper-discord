@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#061a3a" />
+    <meta name="description" content="Time Keeper makes weekly shop hours fast for managers." />
+    <link rel="icon" type="image/png" href="./time-keeper-logo.png" />
+    <link rel="stylesheet" href="./app.css" />
+    <title>Time Keeper</title>
+  </head>
+  <body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <section id="login-view" class="login-view">
+      <div class="login-card">
+        <img class="login-mark" src="./time-keeper-logo.png" alt="Time Keeper clock and storefront logo" />
+        <span class="eyebrow">DISCORD ACTIVITY</span>
+        <h1>Keep every shop<br /><span>on the clock.</span></h1>
+        <p id="connection-message">Connecting securely to Discord…</p>
+        <div class="connection-loader" aria-label="Connecting"><span></span><span></span><span></span></div>
+        <button id="retry-connection" class="button button-discord hidden">Try again</button>
+        <div class="login-points">
+          <span>✓ Shop-based access</span><span>✓ Up to 8 employees</span><span>✓ Cover tracking</span>
+        </div>
+      </div>
+      <div class="login-art" role="img" aria-label="Time Keeper banner with shops and a weekly schedule"></div>
+    </section>
+
+    <div id="app-view" class="app-shell hidden">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="Time Keeper home">
+          <img src="./time-keeper-logo.png" alt="" />
+          <span><b>TIME</b> KEEPER</span>
+        </a>
+        <nav>
+          <button class="nav-item active" data-section="hours">
+            <span class="nav-icon">⌁</span> Weekly hours
+          </button>
+          <button id="admin-nav" class="nav-item hidden" data-section="admin">
+            <span class="nav-icon">⚙</span> Shop setup
+          </button>
+        </nav>
+        <div class="sidebar-tip">
+          <span class="tip-icon">✦</span>
+          <div><strong>Quick tip</strong><p>Hours save in quarter-hour increments.</p></div>
+        </div>
+        <div class="profile">
+          <div class="avatar" id="user-avatar">TK</div>
+          <div><strong id="user-name">Manager</strong><span id="user-role">Shop manager</span></div>
+          <span class="logout">↗</span>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <button id="menu-button" class="menu-button" aria-label="Open navigation">☰</button>
+          <div>
+            <span class="eyebrow">TIME KEEPER</span>
+            <h2 id="page-title">Weekly hours</h2>
+          </div>
+          <div class="week-control" aria-label="Select week">
+            <button id="prev-week" aria-label="Previous week">‹</button>
+            <label><span>Week of</span><input id="week-picker" type="date" /></label>
+            <button id="next-week" aria-label="Next week">›</button>
+          </div>
+        </header>
+
+        <section id="hours-section" class="content-section">
+          <div id="store-tabs" class="store-tabs"></div>
+          <div id="hours-content" class="loading-card">Loading your shop…</div>
+        </section>
+
+        <section id="admin-section" class="content-section hidden">
+          <div class="admin-heading">
+            <div><span class="eyebrow">ADMIN TOOLS</span><h3>Set up your shops</h3></div>
+            <p>Add shops, build each roster, and connect a manager using their Discord user ID.</p>
+          </div>
+          <div class="admin-grid">
+            <form id="shop-form" class="panel form-panel">
+              <span class="step">01</span><h4>Add a shop</h4>
+              <label>Shop name<input name="name" placeholder="e.g. Hillcrest" required maxlength="80" /></label>
+              <button class="button button-primary" type="submit">Add shop</button>
+            </form>
+            <form id="employee-form" class="panel form-panel">
+              <span class="step">02</span><h4>Add an employee</h4>
+              <label>Employee name<input name="name" placeholder="e.g. Casey" required maxlength="80" /></label>
+              <label>Home shop<select name="homeStoreId" class="store-select" required></select></label>
+              <button class="button button-primary" type="submit">Add employee</button>
+              <small>Maximum 8 regular employees per shop.</small>
+            </form>
+            <form id="manager-form" class="panel form-panel">
+              <span class="step">03</span><h4>Assign a manager</h4>
+              <label>Manager name<input name="displayName" placeholder="e.g. Shane" required maxlength="80" /></label>
+              <label>Discord user ID<input name="discordId" inputmode="numeric" placeholder="123456789012345678" required /></label>
+              <label>Shop<select name="storeId" class="store-select" required></select></label>
+              <button class="button button-primary" type="submit">Assign manager</button>
+            </form>
+          </div>
+          <div id="roster-overview" class="panel roster-overview"></div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="cover-dialog" class="modal">
+      <form id="cover-form" method="dialog">
+        <button class="modal-close" value="cancel" aria-label="Close">×</button>
+        <span class="eyebrow">COVERING THIS WEEK</span>
+        <h3>Add cover employee</h3>
+        <p>Choose someone whose home shop is different from <strong id="cover-shop-name"></strong>.</p>
+        <label>Employee<select id="cover-employee" required></select></label>
+        <label>Hours<input id="cover-hours" type="number" min="0" max="168" step="0.25" value="0" required /></label>
+        <button class="button button-primary" value="default">Add to this week</button>
+      </form>
+    </dialog>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

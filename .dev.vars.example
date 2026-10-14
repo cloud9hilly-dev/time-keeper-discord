@@ -1,0 +1,6 @@
+DISCORD_CLIENT_ID="your_discord_application_id"
+DISCORD_CLIENT_SECRET="your_discord_client_secret"
+SESSION_SECRET="replace_with_a_long_random_value"
+ADMIN_DISCORD_IDS="your_discord_user_id"
+# Set true only while previewing locally.
+DEMO_MODE="true"
