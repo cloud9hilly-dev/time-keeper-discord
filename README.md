@@ -53,7 +53,7 @@ Copy the returned database ID into `wrangler.jsonc`, replacing `REPLACE_WITH_D1_
 In the [Discord Developer Portal](https://discord.com/developers/applications):
 
 1. Create an application named **Time Keeper**.
-2. Upload `public/time-keeper-logo.png` as the icon and `public/time-keeper-banner.png` as the profile banner.
+2. Upload `public/time-keeper-discord-icon.png` as the icon. Under **Activities → Art Assets**, use `public/time-keeper-discord-cover.png` for both the 1024×576 background and cover art.
 3. Under **Installation**, support both User Install and Guild Install.
 4. Under **OAuth2**, add `https://127.0.0.1` as the placeholder redirect URI. The Embedded App SDK handles the in-Discord redirect.
 5. Copy the Application ID and Client Secret.
@@ -63,7 +63,6 @@ In the [Discord Developer Portal](https://discord.com/developers/applications):
 Keep `DEMO_MODE` set to `false` in `wrangler.jsonc`, then store the private values in Cloudflare:
 
 ```sh
-pnpm exec wrangler secret put DISCORD_CLIENT_ID
 pnpm exec wrangler secret put DISCORD_CLIENT_SECRET
 pnpm exec wrangler secret put SESSION_SECRET
 pnpm exec wrangler secret put ADMIN_DISCORD_IDS
@@ -71,7 +70,7 @@ pnpm db:remote
 pnpm deploy
 ```
 
-`ADMIN_DISCORD_IDS` accepts one Discord user ID or a comma-separated list. These users can create shops and assign managers. `SESSION_SECRET` should be a new long random value.
+`DISCORD_CLIENT_ID` is a public value stored in `wrangler.jsonc`. `ADMIN_DISCORD_IDS` accepts one Discord user ID or a comma-separated list. These users can create shops and assign managers. `SESSION_SECRET` should be a new long random value.
 
 The final command prints the public `workers.dev` hostname. Keep it for the next step.
 
